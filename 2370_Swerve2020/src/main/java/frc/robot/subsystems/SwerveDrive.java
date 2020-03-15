@@ -23,13 +23,17 @@ public class SwerveDrive extends SubsystemBase {
   }
   private static WPI_TalonSRX FrontLeftSteer = new WPI_TalonSRX(60);
 
+  private static WPI_TalonSRX FrontLeftDrive = new WPI_TalonSRX(12);
+
+
   public static double getAngle(){
     double raw = FrontLeftSteer.getSensorCollection().getQuadraturePosition();
     return raw * 360/4096;
   }
 
-  public static void moveSwerve(double speed){
-    FrontLeftSteer.set(ControlMode.PercentOutput, speed);
+  public static void moveSwerve(double angle, double speed){
+    FrontLeftSteer.set(ControlMode.PercentOutput, angle);
+    FrontLeftDrive.set(ControlMode.PercentOutput, speed);
   }
 
   public static void resetEncoders(){

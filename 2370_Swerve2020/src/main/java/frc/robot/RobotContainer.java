@@ -40,15 +40,31 @@ public class RobotContainer {
     }
   }
 
+  public static double getDistance(){
+    double rawX = Math.abs(stick.getRawAxis(0));
+    double rawY = Math.abs(stick.getRawAxis(1));
+    return 0.5 * (rawX + rawY);
+  }
+
+
+
   public static double getAngle(){
     if(getX() == 0 && gety() == 0){
-      return 0;
+      return previousAngle;
     }
     double rawX = getX();
     double rawY = gety();
     double rad = Math.atan2(rawX, -rawY);
     double deg = Math.toDegrees(rad);
     return deg;
+  }
+
+  private static double previousAngle;
+
+  public static void setPreviousAngle(){
+    if(getAngle() != 0){
+      previousAngle = getAngle();
+    }
   }
   // The robot's subsystems and commands are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
